@@ -1,0 +1,54 @@
+# Python-related
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.pdb
+*.log
+*.db
+*.sqlite3
+*.egg
+*.egg-info
+dist
+build
+*.eggs
+venv
+env
+ENV
+env/
+venv/
+
+# Django-specific
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+*.sqlite3
+
+# ExifTool specific
+exiftool_config.yml  
+
+# IDE/editor-specific files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Docker files (not required for build context)
+Dockerfile
+docker-compose.yml
+
+# Git files (optional, only if you don't want them in the image)
+.git/
+.gitignore
+
+# Temporary files (e.g., backup files, auto-generated files)
+*.bak
+*.swp
+*.swo
+*.tmp

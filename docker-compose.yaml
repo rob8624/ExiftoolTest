@@ -1,0 +1,48 @@
+version: '3.8'
+
+services:
+  exiftool:
+    image: secsi/exiftool:latest
+    container_name: exiftool
+    restart: always
+    networks:
+      - django_network
+    stdin_open: true
+    tty: true
+
+  django:
+    build: .  # Build the Django service using the Dockerfile in the current directory
+    container_name: django-app
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: gunicorn exiftest.wsgi:application --bind 0.0.0.0:8000  # Start Django with Gunicorn
+    ports:
+      - "8000:8000"
+    networks:
+      - django_network
+    depends_on:
+      - exiftool
+      - postgres
+    env_file:
+      - ./exiftest/.env
+
+  postgres:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - django_network
+    restart: always
+
+networks:
+  django_network:
+    external: false
+
+volumes:
+  postgres-data:
