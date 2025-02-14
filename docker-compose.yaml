@@ -25,7 +25,7 @@ services:
       - exiftool
       - postgres
     env_file:
-      - ./exiftest/.env
+      - .env
 
   postgres:
     image: postgres:13
@@ -39,6 +39,8 @@ services:
     networks:
       - django_network
     restart: always
+    env_file:
+      - .env
 
 networks:
   django_network:
